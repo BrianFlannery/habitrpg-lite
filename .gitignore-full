@@ -30,3 +30,4 @@ common/dist/scripts/*
 common/dist/sprites/habitrpg-shared.css
 
 test/spec/mocks/translations.js
+.git-lite
