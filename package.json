@@ -66,6 +66,7 @@
     "q": "^1.4.1",
     "qs": "^2.3.2",
     "request": "~2.44.0",
+    "rimraf": "^2.5.1",
     "s3-upload-stream": "^1.0.6",
     "stripe": "*",
     "superagent": "~1.4.0",
