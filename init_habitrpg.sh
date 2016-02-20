@@ -37,5 +37,24 @@ sudo chown -R $me $HOME/.npm ;
 
 npm install ;
 
+sudo apt-get install -y apache2 libapache2-mod-proxy-html libxml2-dev ;
+sudo cp -rp \
+  /etc/apache2/sites-available/000-default.conf \
+  /etc/apache2/sites-available/000-default.conf.orig ;
+sudo cat > /etc/apache2/sites-available/000-default.conf <<'EOF'
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/html
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+	
+        ProxyPass / http://0.0.0.0:3000/
+        ProxyPassReverse / http://0.0.0.0:3000/
+        ServerName localhost
+</VirtualHost>
+EOF
+
+sudo service apache2 start ;
+
 #
 
