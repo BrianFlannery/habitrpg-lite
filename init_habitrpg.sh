@@ -34,6 +34,8 @@ cd habitrpg-lite ;
 
 git checkout develop ;
 
+[[ -e config.json ]] || cp config.json.example config.json ;
+
 sudo chown -R $me $HOME/.npm ;
 
 npm install ;
