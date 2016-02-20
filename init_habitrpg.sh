@@ -38,10 +38,11 @@ sudo chown -R $me $HOME/.npm ;
 npm install ;
 
 sudo apt-get install -y apache2 libapache2-mod-proxy-html libxml2-dev ;
-sudo cp -rp \
-  /etc/apache2/sites-available/000-default.conf \
-  /etc/apache2/sites-available/000-default.conf.orig ;
-sudo cat > /etc/apache2/sites-available/000-default.conf <<'EOF'
+if [[ ! -e /etc/apache2/sites-available/000-default.conf.orig ]] ; then
+  sudo cp -rp \
+    /etc/apache2/sites-available/000-default.conf \
+    /etc/apache2/sites-available/000-default.conf.orig ;
+  sudo cat > /etc/apache2/sites-available/000-default.conf <<'EOF'
 <VirtualHost *:80>
 	ServerAdmin webmaster@localhost
 	DocumentRoot /var/www/html
@@ -53,6 +54,15 @@ sudo cat > /etc/apache2/sites-available/000-default.conf <<'EOF'
         ServerName localhost
 </VirtualHost>
 EOF
+fi ;
+
+if [[ ! -e /var/swapfile ]] ; then
+  sudo dd if=/dev/zero of=/var/swapfile bs=1M count=2048 &&
+  sudo chmod 600 /var/swapfile &&
+  sudo mkswap /var/swapfile &&
+  echo /var/swapfile none swap defaults 0 0 | sudo tee -a /etc/fstab &&
+  sudo swapon -a
+fi ;
 
 sudo service apache2 start ;
 
