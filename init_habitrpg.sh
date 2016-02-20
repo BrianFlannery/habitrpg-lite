@@ -13,15 +13,16 @@ x=`sudo apt-key list | grep EA312927` ;
 
 sudo apt-get update
 
+sudo apt-get install -y build-essential ;
 sudo apt-get install -y mongodb-org
 
 sudo service mongod start
 
 sudo apt-get update
 
-cmd="umask 022 ; apt-get install -y build-essential ;" ;
-cmd="$cmd ; apt-get install -y python-software-properties ; apt-add-repository ppa:chris-lea/node.js ;" ;
-cmd="$cmd apt-get update ; apt-get install -y nodejs git" ; 
+cmd="umask 022 ; apt-get install -y build-essential" ;
+cmd="$cmd ; apt-get install -y python-software-properties ; apt-add-repository ppa:chris-lea/node.js" ;
+cmd="$cmd ; apt-get update ; apt-get install -y nodejs git" ; 
 sudo bash -c "$cmd" ;
 
 sudo bash -c "umask 022 ; npm install -g gulp grunt-cli bower" ;
